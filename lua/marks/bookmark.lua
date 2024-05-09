@@ -332,9 +332,8 @@ function Bookmarks:to_list(list_type, group_nr)
 	for bufnr, buffer_marks in pairs(self.groups[group_nr].marks) do
 		for line, mark in pairs(buffer_marks) do
 			local text = a.nvim_buf_get_lines(bufnr, line - 1, line, true)[1]
-			local newText = string.gsub(text, "bookmark group 0: ", "")
 
-			table.insert(items, { bufnr = bufnr, lnum = line, col = mark.col + 1, text = newText })
+			table.insert(items, { bufnr = bufnr, lnum = line, col = mark.col + 1, text = text })
 		end
 	end
 
@@ -354,7 +353,7 @@ function Bookmarks:all_to_list(list_type)
 					bufnr = bufnr,
 					lnum = line,
 					col = mark.col + 1,
-					text = "bookmark group " .. group_nr .. ": " .. text,
+					text = text,
 				})
 			end
 		end
